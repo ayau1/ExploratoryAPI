@@ -7,10 +7,10 @@ namespace ExploratoryAPI.Controllers
         [HttpPost]
         [Route("Add")]
 
-        public string Add(Report report)
+        public Report Add(Report report)
         {
 
-            return report.StoryNumber;
+            return report;
 
 
         }
