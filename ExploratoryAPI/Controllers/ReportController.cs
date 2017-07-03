@@ -1,4 +1,6 @@
 ﻿using System.Web.Http;
+using ExploratoryAPI.DataBase;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace ExploratoryAPI.Controllers
 {
@@ -7,11 +9,13 @@ namespace ExploratoryAPI.Controllers
         [HttpPost]
         [Route("Add")]
 
-        public Report Add(Report report)
+        public string Add(Report report)
         {
-
-            return report;
-
+            //send it to database
+            var mongodatabase = new MongoDatabase();
+            mongodatabase.Insert(report);
+            var result = mongodatabase.Extract("555");
+            return result.StoryNumber;
 
         }
 
@@ -29,9 +33,14 @@ namespace ExploratoryAPI.Controllers
 //look at Http verbs and play around
     }
 
+
+    [BsonIgnoreExtraElements]
     public class Report
     {
         public string StoryNumber { get; set; }
         public string Reporter { get; set; }
+        public string SetUp { get; set; }
+        public string Mission { get; set; }
+        public string Results { get; set; }
     }
 }
