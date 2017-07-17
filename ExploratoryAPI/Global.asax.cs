@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Autofac;
+using Autofac.Integration.WebApi;
+using Exploratory.Repository.Repositories;
 
 namespace ExploratoryAPI
 {
@@ -18,6 +22,15 @@ namespace ExploratoryAPI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            var builder = new ContainerBuilder();
+            var config = GlobalConfiguration.Configuration;
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            RegisterRepositories(builder);
+        }
+
+        private static void RegisterRepositories(ContainerBuilder builder)
+        {
+            builder.RegisterType<ReportRepository>().As<IReportRepository>();
         }
     }
 }
