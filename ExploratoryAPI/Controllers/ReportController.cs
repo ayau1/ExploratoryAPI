@@ -1,46 +1,46 @@
-﻿using System.Web.Http;
-using ExploratoryAPI.DataBase;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using Exploratory.Domain.Models;
+using Exploratory.Repository.Repositories;
+using ExploratoryAPI.Models;
 
 namespace ExploratoryAPI.Controllers
 {
     public class ReportController : ApiController
     {
+        private readonly IReportRepository _reportRepository;
+
+        public ReportController(IReportRepository reportRepository)
+        {
+            _reportRepository = reportRepository;
+        }
+
         [HttpPost]
         [Route("Add")]
 
-        public string Add(Report report)
+        public HttpResponseMessage Add(Report report)
         {
             //send it to database
-            var mongodatabase = new MongoDatabase();
-            mongodatabase.Insert(report);
-            var result = mongodatabase.Extract("555");
-            return result.StoryNumber;
+           // var mongodatabase = new MongoDatabase();
+           // mongodatabase.Insert(report);
+//            var result = mongodatabase.Extract("555");
+//            return result.StoryNumber;
+            _reportRepository.SaveReport(report);
+            return new HttpResponseMessage(HttpStatusCode.OK);
 
         }
-
-        // add some more e.g.
-//        //   [HttpPost]
-//        [Route("delete")]
+//        [HttpPost]
+//        [Route("Retrieve")]
 //
-//        public string Add(Report report)
+//        public Report Retrieve(string storyNumber)
 //        {
-//
-//            return report.StoryNumber;
-//
-//
-//        }
-//look at Http verbs and play around
-    }
+//            //retrieve from database
+//            var mongodatabase = new MongoDatabase();
+//            var report = mongodatabase.Extract(storyNumber);
+//            return report;
 
-
-    [BsonIgnoreExtraElements]
-    public class Report
-    {
-        public string StoryNumber { get; set; }
-        public string Reporter { get; set; }
-        public string SetUp { get; set; }
-        public string Mission { get; set; }
-        public string Results { get; set; }
+    //    }
+       
     }
 }
