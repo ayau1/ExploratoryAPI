@@ -11,7 +11,7 @@ namespace ExploratoryAPI.Controllers
     {
         private readonly IReportRepository _reportRepository;
 
-        public ReportController(IReportRepository reportRepository)
+        public ReportController(IReportRepository reportRepository)//dependancy
         {
             _reportRepository = reportRepository;
         }
