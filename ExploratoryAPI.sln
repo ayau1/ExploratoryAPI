@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exploratory.Repository", "E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exploratory.Domain", "Exploratory.Domain\Exploratory.Domain.csproj", "{F8367DA5-FEE8-4AA2-96AE-82D7E9C1D03E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{91C9D06C-43E3-4557-8B25-D10B3EC853BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exploratory.Repository.Tests", "Exploratory.Repository.Tests\Exploratory.Repository.Tests.csproj", "{22B47A84-0050-4065-A1AA-99A179B60B28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +31,15 @@ Global
 		{F8367DA5-FEE8-4AA2-96AE-82D7E9C1D03E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8367DA5-FEE8-4AA2-96AE-82D7E9C1D03E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8367DA5-FEE8-4AA2-96AE-82D7E9C1D03E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22B47A84-0050-4065-A1AA-99A179B60B28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22B47A84-0050-4065-A1AA-99A179B60B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22B47A84-0050-4065-A1AA-99A179B60B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22B47A84-0050-4065-A1AA-99A179B60B28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{22B47A84-0050-4065-A1AA-99A179B60B28} = {91C9D06C-43E3-4557-8B25-D10B3EC853BE}
 	EndGlobalSection
 EndGlobal
