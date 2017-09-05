@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{91C9D06C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exploratory.Repository.Tests", "Exploratory.Repository.Tests\Exploratory.Repository.Tests.csproj", "{22B47A84-0050-4065-A1AA-99A179B60B28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExploratoryAPI.Tests", "ExploratoryAPI.Tests\ExploratoryAPI.Tests.csproj", "{BC524F5D-28B4-48B5-9619-1C0CDDCC1524}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,11 +37,16 @@ Global
 		{22B47A84-0050-4065-A1AA-99A179B60B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22B47A84-0050-4065-A1AA-99A179B60B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22B47A84-0050-4065-A1AA-99A179B60B28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC524F5D-28B4-48B5-9619-1C0CDDCC1524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC524F5D-28B4-48B5-9619-1C0CDDCC1524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC524F5D-28B4-48B5-9619-1C0CDDCC1524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC524F5D-28B4-48B5-9619-1C0CDDCC1524}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{22B47A84-0050-4065-A1AA-99A179B60B28} = {91C9D06C-43E3-4557-8B25-D10B3EC853BE}
+		{BC524F5D-28B4-48B5-9619-1C0CDDCC1524} = {91C9D06C-43E3-4557-8B25-D10B3EC853BE}
 	EndGlobalSection
 EndGlobal
