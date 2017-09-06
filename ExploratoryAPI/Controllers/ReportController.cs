@@ -21,26 +21,11 @@ namespace ExploratoryAPI.Controllers
 
         public HttpResponseMessage Add(Report report)
         {
-            //send it to database
-           // var mongodatabase = new MongoDatabase();
-           // mongodatabase.Insert(report);
-//            var result = mongodatabase.Extract("555");
-//            return result.StoryNumber;
+
             _reportRepository.SaveReport(report);
             return new HttpResponseMessage(HttpStatusCode.OK);
 
         }
-//        [HttpPost]
-//        [Route("Retrieve")]
-//
-//        public Report Retrieve(string storyNumber)
-//        {
-//            //retrieve from database
-//            var mongodatabase = new MongoDatabase();
-//            var report = mongodatabase.Extract(storyNumber);
-//            return report;
-
-    //    }
        
     }
 }
