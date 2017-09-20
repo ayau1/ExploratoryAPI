@@ -1,5 +1,8 @@
+using System.Linq;
+using System.Threading.Tasks;
 using Exploratory.Domain.Models;
 using Exploratory.Repository.RepoCore;
+using MongoDB.Bson.Serialization;
 
 namespace Exploratory.Repository.Repositories
 {
@@ -18,12 +21,11 @@ namespace Exploratory.Repository.Repositories
             _database.Insert(report);
         }
 
-        public Report RetrieveReport(string storyNumber)
+        public async Task<Report> RetrieveReport(string storyNumber)
         {
 
-            var report  = _database.Retrieve(storyNumber);
-
-            return report;
+            var report = await _database.Retrieve(storyNumber);
+            return BsonSerializer.Deserialize<Report>(report.First());
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Exploratory.Domain.Models;
 using Exploratory.Repository.Repositories;
@@ -30,10 +31,10 @@ namespace ExploratoryAPI.Controllers
         [HttpGet]
         [Route("Retrieve")]
 
-        public HttpResponseMessage Retrieve(string storyNumber)
+        public async Task<Report> Retrieve(string storyNumber)
         {
-            _reportRepository.RetrieveReport(storyNumber);
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return await _reportRepository.RetrieveReport(storyNumber);
+            
         }
 
     }

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Exploratory.Domain.Models;
 
 namespace Exploratory.Repository.Repositories
@@ -6,6 +7,6 @@ namespace Exploratory.Repository.Repositories
     {
         void SaveReport(Report report);
 
-        Report RetrieveReport(string storyNumber);
+        Task<Report> RetrieveReport(string storyNumber);
     }
 }

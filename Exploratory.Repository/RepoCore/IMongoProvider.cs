@@ -1,4 +1,7 @@
-﻿using Exploratory.Domain.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Exploratory.Domain.Models;
+using MongoDB.Bson;
 
 namespace Exploratory.Repository.RepoCore
 {
@@ -7,6 +10,6 @@ namespace Exploratory.Repository.RepoCore
         IMongoProvider ForCollection(string collectionName);
         void Insert<T>(T model);
 
-        Report Retrieve(string storyNumber);
+        Task<List<BsonDocument>> Retrieve(string storyNumber);
     }
 }

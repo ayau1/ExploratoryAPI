@@ -1,4 +1,6 @@
-﻿using Exploratory.Domain.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Exploratory.Domain.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -25,7 +27,7 @@ namespace Exploratory.Repository.RepoCore
             _database.GetCollection<T>(_collectionName).InsertOne(model);
         }
 
-        public async Report Retrieve(string storyNumber)
+        public async Task<List<BsonDocument>> Retrieve(string storyNumber)
         {
             // i want to retrieve an item from the collection and return it
             //I will look for the item with the matching story number
@@ -34,12 +36,8 @@ namespace Exploratory.Repository.RepoCore
 
             var collection = _database.GetCollection<BsonDocument>(_collectionName);
             var filter = Builders<BsonDocument>.Filter.Eq("StoryNumber", storyNumber);
-            var report = await collection.Find(filter).ToListAsync();
-
-            return report;
-
-
-
+            var reportList = await collection.Find(filter).ToListAsync();
+            return reportList;
         }
 
     }
