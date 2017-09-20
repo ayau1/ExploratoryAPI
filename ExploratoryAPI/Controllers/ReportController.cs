@@ -26,6 +26,15 @@ namespace ExploratoryAPI.Controllers
             return new HttpResponseMessage(HttpStatusCode.OK);
 
         }
-       
+
+        [HttpGet]
+        [Route("Retrieve")]
+
+        public HttpResponseMessage Retrieve(string storyNumber)
+        {
+            _reportRepository.RetrieveReport(storyNumber);
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
     }
 }

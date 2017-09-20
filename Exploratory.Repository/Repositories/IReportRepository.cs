@@ -6,5 +6,6 @@ namespace Exploratory.Repository.Repositories
     {
         void SaveReport(Report report);
 
+        Report RetrieveReport(string storyNumber);
     }
 }

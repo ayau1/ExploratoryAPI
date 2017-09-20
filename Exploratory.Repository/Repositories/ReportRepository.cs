@@ -17,5 +17,13 @@ namespace Exploratory.Repository.Repositories
         {
             _database.Insert(report);
         }
+
+        public Report RetrieveReport(string storyNumber)
+        {
+
+            var report  = _database.Retrieve(storyNumber);
+
+            return report;
+        }
     }
 }
