@@ -32,14 +32,5 @@ namespace Exploratory.Repository.Repositories
             var report = await _database.Retrieve(storyNumber);
             return BsonSerializer.Deserialize<Report>(report.First());
         }
-
-        public async MongoSaveStatus UpdateReport(string storyNumber)
-        {
-            // for the database collection report, story number x
-            //update the reporter, setup, mission, results
-
-            var collection = DB.GetCollection<BsonDocument>("MasterIds");
-            var report= await collection.
-        }
     }
 }
