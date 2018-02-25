@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Exploratory.Domain.Models;
 using MongoDB.Bson;
@@ -22,9 +23,26 @@ namespace Exploratory.Repository.RepoCore
             return this;
         }
 
-        public void Insert<T>(T model)
+        public MongoSaveStatus Insert<T>(T model)
         {
-            _database.GetCollection<T>(_collectionName).InsertOne(model);
+            try
+            {
+                _database.GetCollection<T>(_collectionName).InsertOne(model);
+                return MongoSaveStatus.Success;
+            }
+            catch (MongoWriteException mwe)
+            {
+                //MongoWriteException and ServerErrorCategory are types returned from Mongo
+                if (mwe.WriteError.Category == ServerErrorCategory.DuplicateKey)
+                {
+                    return MongoSaveStatus.Duplicate;
+                }
+                return MongoSaveStatus.Error;
+            }
+            catch (MongoException)
+            {
+                return MongoSaveStatus.Error;
+            }
         }
 
         public async Task<List<BsonDocument>> Retrieve(string storyNumber)
@@ -40,5 +58,34 @@ namespace Exploratory.Repository.RepoCore
             return reportList;
         }
 
+        public async Task CreateIndexOnCollection<T>(string collectionName, string field, bool unique)
+        {
+            var collection = _database.GetCollection<T>(collectionName);
+            var keys = Builders<T>.IndexKeys.Ascending(field);
+            await collection.Indexes.CreateOneAsync(keys, new CreateIndexOptions
+            {
+                Unique = unique
+            });
+        }
+
+        public MongoSaveStatus Update(Report report)
+        {
+            var getCollection = _database.GetCollection<BsonDocument>(_collectionName);
+            getCollection.FindOneAndUpdateAsync(Builders<BsonDocument>.Filter.Eq("StoryNumber", report.StoryNumber)
+                , Builders<BsonDocument>.Update.Set("Reporter", report.Reporter)
+                .Set("SetUp",report.SetUp)
+                .Set("Mission",report.Mission)
+                .Set("Results",report.Results))
+                ;
+            return MongoSaveStatus.Success;
+
+        }
+    }
+
+    public enum MongoSaveStatus
+    {
+        Success,
+        Duplicate,
+        Error
     }
 }

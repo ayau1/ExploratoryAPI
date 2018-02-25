@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Exploratory.Domain.Models;
+using Exploratory.Repository.RepoCore;
 using Exploratory.Repository.Repositories;
 using ExploratoryAPI.Models;
 
@@ -25,9 +26,18 @@ namespace ExploratoryAPI.Controllers
         public HttpResponseMessage Add(Report report)
         {
 
-            _reportRepository.SaveReport(report);
-            return new HttpResponseMessage(HttpStatusCode.OK);
 
+            var saveStatus = _reportRepository.SaveReport(report);
+
+            switch (saveStatus)
+            {
+                case MongoSaveStatus.Success:
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+                case MongoSaveStatus.Duplicate:
+                    return new HttpResponseMessage(HttpStatusCode.Conflict);
+                default:
+                    return new HttpResponseMessage(HttpStatusCode.NotModified);
+            }
         }
 
         [System.Web.Http.HttpGet]
@@ -39,6 +49,13 @@ namespace ExploratoryAPI.Controllers
             
         }
 
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("Update")]
+        public HttpResponseMessage Update(Report report)
+        {
+            _reportRepository.UpdateReport(report);
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
 
     }
 }
