@@ -33,8 +33,6 @@ namespace ExploratoryAPI.Controllers
             {
                 case MongoSaveStatus.Success:
                     return new HttpResponseMessage(HttpStatusCode.OK);
-                case MongoSaveStatus.Duplicate:
-                    return new HttpResponseMessage(HttpStatusCode.Conflict);
                 default:
                     return new HttpResponseMessage(HttpStatusCode.NotModified);
             }
@@ -53,8 +51,17 @@ namespace ExploratoryAPI.Controllers
         [System.Web.Http.Route("Update")]
         public HttpResponseMessage Update(Report report)
         {
-            _reportRepository.UpdateReport(report);
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            var updateStatus = _reportRepository.UpdateReport(report);
+
+            switch (updateStatus)
+            {
+                case MongoSaveStatus.Success:
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+                case MongoSaveStatus.Duplicate:
+                    return new HttpResponseMessage(HttpStatusCode.Conflict);
+                default:
+                    return new HttpResponseMessage(HttpStatusCode.NotModified);
+            }
         }
 
     }

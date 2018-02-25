@@ -70,15 +70,21 @@ namespace Exploratory.Repository.RepoCore
 
         public MongoSaveStatus Update(Report report)
         {
-            var getCollection = _database.GetCollection<BsonDocument>(_collectionName);
-            getCollection.FindOneAndUpdateAsync(Builders<BsonDocument>.Filter.Eq("StoryNumber", report.StoryNumber)
-                , Builders<BsonDocument>.Update.Set("Reporter", report.Reporter)
-                .Set("SetUp",report.SetUp)
-                .Set("Mission",report.Mission)
-                .Set("Results",report.Results))
-                ;
-            return MongoSaveStatus.Success;
 
+            try
+            {
+                _database.GetCollection<BsonDocument>(_collectionName).FindOneAndUpdate(Builders<BsonDocument>.Filter.Eq("StoryNumber", report.StoryNumber)
+                , Builders<BsonDocument>.Update.Set("Reporter", report.Reporter)
+                    .Set("SetUp", report.SetUp)
+                    .Set("Mission", report.Mission)
+                    .Set("Results", report.Results));
+
+                return MongoSaveStatus.Success;
+            }
+            catch (MongoException)
+            {
+                return MongoSaveStatus.Error;
+            }
         }
     }
 
