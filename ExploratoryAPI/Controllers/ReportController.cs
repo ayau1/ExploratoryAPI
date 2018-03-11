@@ -14,10 +14,12 @@ namespace ExploratoryAPI.Controllers
     public class ReportController : ApiController
     {
         private readonly IReportRepository _reportRepository;
+        private readonly FormValidation _formValidation;
 
         public ReportController(IReportRepository reportRepository)//dependancy
         {
             _reportRepository = reportRepository;
+            _formValidation = new FormValidation();
         }
 
         [System.Web.Http.HttpPost]
@@ -25,7 +27,7 @@ namespace ExploratoryAPI.Controllers
 
         public HttpResponseMessage Add(Report report)
         {
-
+            var fieldValidation = _formValidation.ValidateForm(report);
 
             var saveStatus = _reportRepository.SaveReport(report);
 
@@ -64,5 +66,16 @@ namespace ExploratoryAPI.Controllers
             }
         }
 
+        private class FormValidation
+        {
+            private string ValidateForm(Report report)
+            {
+
+                // take each field and validate
+                var errors = 
+
+                return errors;
+            }
+        }
     }
 }
